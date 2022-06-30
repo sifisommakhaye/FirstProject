@@ -10,28 +10,32 @@ namespace FirstProject.Calc
         public void RunCalculation()
         {
             // declare variables
-            string[] allowedOper = new string[4] { "+", "-", "*", "/" };
+            string[] allowedOperator = new string[4] { "+", "-", "*", "/" };
             string type;
             int num1;
             int num2;
             int answer;
             string restartCheck;
 
-            // get the operator type
+            // get the operator type + - * /
             Console.WriteLine("What type of calculation do you want to perform? (+, -, *, /)");
-            type = GetCalcType(allowedOper);
+            type = GetCalcType(allowedOperator);
 
-
+            // get the first number
             Console.WriteLine("Write the first number.");
             num1 = GetCalcNum();
 
+            // get the second number
             Console.WriteLine("Write the second number");
             num2 = GetCalcNum();
 
+            // caculate two numbers using an operator
             answer = Calculate(num1, num2, type);
 
-            Console.WriteLine("The answer is" + answer + " \r\n Write 'yes' to restart application");
+            // the answer will be...
+            Console.WriteLine("The answer is " + answer + " \r\n Write 'yes' to restart application");
 
+            // Check if the user wants to restart the application
             restartCheck = Console.ReadLine();
             if (restartCheck == "yes")
             {
@@ -43,11 +47,12 @@ namespace FirstProject.Calc
             }
         }
 
-        private string GetCalcType(string[] allowedOper)
+        // get a valid type and return it to the above method
+        private string GetCalcType(string[] allowedOperator)
         {
             string type = Console.ReadLine();
 
-            while (!allowedOper.Contains(type))
+            while (!allowedOperator.Contains(type))
             {
                 Console.WriteLine("Choose a valid operator type!");
                 type = Console.ReadLine();
@@ -58,9 +63,11 @@ namespace FirstProject.Calc
         private int GetCalcNum()
         {
             int num;
+            // Checking if the parse is successful
+            // Returns as a boolean
+           bool parseCheck = Int32.TryParse(Console.ReadLine(), out num);
 
-            bool parseCheck = Int32.TryParse(Console.ReadLine(), out num);
-
+            // while boolean is false it keep looping the input
             while (!parseCheck)
             {
                 Console.WriteLine("Try again! This time with actual numbers...");
@@ -74,6 +81,7 @@ namespace FirstProject.Calc
         {
             int result;
 
+            // Check operator type
             if (type == "+")
             {
                 result = num1 + num2;
@@ -94,7 +102,6 @@ namespace FirstProject.Calc
                 result = num1 / num2;
                 return result;
             }
-
         }
     }   
 }
